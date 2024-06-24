@@ -2,26 +2,24 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import axios from 'axios';
 import multer from 'multer';
-import path from 'path';
 import * as assistantFunctions from './Assistants.js';
 import * as threadFunctions from './Threads.js';
 import * as messageFunctions from './Messages.js';
 import * as runFunctions from './Runs.js';
 import * as filesFunctions from './Files.js';
+import path from 'path';
 import fs from "fs";
 
-// import OpenAI from "openai";
-
-// let keys = JSON.parse(fs.readFileSync('keys.json', 'utf8'));
-// const openai = new OpenAI({apiKey: keys["to-use"]});
-
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3000;
 const jwtToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiIsImFkbWluIjp0cnVlfQ.nNAzmMIy45jwYOsN-HKqILn3nVoi82MPPCYid5SUrQUdIN_P5M9G8GwkpqIVr77s5r_esBQ_Cm-L8ACjmBAlvg";
-
+const uploadDirectory = path.join(__dirname, '/uploads');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Папка для сохранения файлов
+        cb(null, uploadDirectory); // Папка для сохранения файлов
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname); // Оставляем оригинальное имя файла

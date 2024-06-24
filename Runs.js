@@ -1,6 +1,14 @@
 import OpenAI from "openai";
-import fs from "fs";
-let keys = JSON.parse(fs.readFileSync('keys.json', 'utf8'));
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Получите текущий каталог файла
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const keysPath = path.join(__dirname, 'keys.json');
+let keys = JSON.parse(fs.readFileSync(keysPath, 'utf8'));
 const openai = new OpenAI({apiKey: keys["to-use"]});
 
 export async function create(configuration) {
