@@ -39,7 +39,7 @@ app.post('/assistants', async (req, res) => {
     console.log('Параметры запроса:', req.query);
 
     const authHeader = req.headers['authorization'] || req.get('Authorization');
-    console.log(authHeader);
+    
     if (!authHeader) {
         console.log('Authorization header not found');
         return res.status(401).send('Authorization header not found');
@@ -72,7 +72,7 @@ app.post('/threads', async (req, res) => {
     console.log('Параметры запроса:', req.query);
 
     const authHeader = req.headers['authorization'] || req.get('Authorization');
-    console.log(authHeader);
+    
     if (!authHeader) {
         console.log('Authorization header not found');
         return res.status(401).send('Authorization header not found');
@@ -106,7 +106,7 @@ app.post('/messages', async (req, res) => {
     console.log('Параметры запроса:', req.query);
 
     const authHeader = req.headers['authorization'] || req.get('Authorization');
-    console.log(authHeader);
+    
     if (!authHeader) {
         console.log('Authorization header not found');
         return res.status(401).send('Authorization header not found');
@@ -139,7 +139,7 @@ app.post('/runs', async (req, res) => {
     console.log('Параметры запроса:', req.query);
 
     const authHeader = req.headers['authorization'] || req.get('Authorization');
-    console.log(authHeader);
+    
     if (!authHeader) {
         console.log('Authorization header not found');
         return res.status(401).send('Authorization header not found');
@@ -171,9 +171,7 @@ app.post('/files', upload.single('file'), async (req, res) => {
         console.log('Получен POST запрос');
         console.log('Тело запроса:', req.body);
         console.log('Параметры запроса:', req.query);
-
         const authHeader = req.headers['authorization'] || req.get('Authorization');
-        console.log(authHeader);
         if (!authHeader) {
             console.log('Authorization header not found');
             return res.status(401).send('Authorization header not found');
@@ -181,7 +179,6 @@ app.post('/files', upload.single('file'), async (req, res) => {
         if(authHeader !== jwtToken){
             return res.status(401).send('Authorization failed');
         }
-
         // Получение файла
         const file = req.file;
         let method = req.query.method;
