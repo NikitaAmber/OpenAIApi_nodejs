@@ -17,6 +17,7 @@ import fs from "fs";
 
 const app = express();
 const port = 3000;
+const jwtToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiIsImFkbWluIjp0cnVlfQ.nNAzmMIy45jwYOsN-HKqILn3nVoi82MPPCYid5SUrQUdIN_P5M9G8GwkpqIVr77s5r_esBQ_Cm-L8ACjmBAlvg";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -36,6 +37,17 @@ app.post('/assistants', async (req, res) => {
     console.log('Получен POST запрос');
     console.log('Тело запроса:', req.body);
     console.log('Параметры запроса:', req.query);
+
+    const authHeader = req.headers['authorization'] || req.get('Authorization');
+    console.log(authHeader);
+    if (!authHeader) {
+        console.log('Authorization header not found');
+        return res.status(401).send('Authorization header not found');
+    }
+    if(authHeader !== jwtToken){
+        return res.status(401).send('Authorization failed');
+    }
+
 
     let method = req.query.method;
     // Обработка POST данных
@@ -58,6 +70,16 @@ app.post('/threads', async (req, res) => {
     console.log('Получен POST запрос');
     console.log('Тело запроса:', req.body);
     console.log('Параметры запроса:', req.query);
+
+    const authHeader = req.headers['authorization'] || req.get('Authorization');
+    console.log(authHeader);
+    if (!authHeader) {
+        console.log('Authorization header not found');
+        return res.status(401).send('Authorization header not found');
+    }
+    if(authHeader !== jwtToken){
+        return res.status(401).send('Authorization failed');
+    }
 
     let method = req.query.method;
     // Обработка POST данных
@@ -83,6 +105,16 @@ app.post('/messages', async (req, res) => {
     console.log('Тело запроса:', req.body);
     console.log('Параметры запроса:', req.query);
 
+    const authHeader = req.headers['authorization'] || req.get('Authorization');
+    console.log(authHeader);
+    if (!authHeader) {
+        console.log('Authorization header not found');
+        return res.status(401).send('Authorization header not found');
+    }
+    if(authHeader !== jwtToken){
+        return res.status(401).send('Authorization failed');
+    }
+
     let method = req.query.method;
     // Обработка POST данных
     const configuration = req.body;
@@ -105,6 +137,16 @@ app.post('/runs', async (req, res) => {
     console.log('Получен POST запрос');
     console.log('Тело запроса:', req.body);
     console.log('Параметры запроса:', req.query);
+
+    const authHeader = req.headers['authorization'] || req.get('Authorization');
+    console.log(authHeader);
+    if (!authHeader) {
+        console.log('Authorization header not found');
+        return res.status(401).send('Authorization header not found');
+    }
+    if(authHeader !== jwtToken){
+        return res.status(401).send('Authorization failed');
+    }
 
     let method = req.query.method;
     // Обработка POST данных
@@ -129,6 +171,17 @@ app.post('/files', upload.single('file'), async (req, res) => {
         console.log('Получен POST запрос');
         console.log('Тело запроса:', req.body);
         console.log('Параметры запроса:', req.query);
+
+        const authHeader = req.headers['authorization'] || req.get('Authorization');
+        console.log(authHeader);
+        if (!authHeader) {
+            console.log('Authorization header not found');
+            return res.status(401).send('Authorization header not found');
+        }
+        if(authHeader !== jwtToken){
+            return res.status(401).send('Authorization failed');
+        }
+
         // Получение файла
         const file = req.file;
         let method = req.query.method;
