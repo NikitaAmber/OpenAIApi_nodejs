@@ -150,7 +150,7 @@ app.post('/runs', async (req, res) => {
     // Обработка POST данных
     const configuration = req.body;
     console.log(configuration);
-    let allowed = ["create","retrieve",];
+    let allowed = ["create","retrieve","toolOutputs"];
     if(!allowed.includes(method)){
         res.send("Неизвестный метод");
         return;
@@ -182,7 +182,7 @@ app.post('/files', upload.single('file'), async (req, res) => {
         let method = req.query.method;
         // Обработка POST данных
         const configuration = req.body;
-        if (file && method == "fileUpload") {
+        if (file && method === "fileUpload") {
             console.log('Файл успешно загружен:', file);
             configuration.file = fs.createReadStream(file.path);
         }
