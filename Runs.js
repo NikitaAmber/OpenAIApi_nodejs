@@ -44,7 +44,9 @@ export async function toolOutputs(configuration) {
     });
     console.log(configuration);
     let thread_id = configuration.thread_id;
+    delete configuration.thread_id;
     let run_id = configuration.run_id;
+    delete configuration.run_id;
     return await openai.beta.threads.runs.submitToolOutputs(
         thread_id,
         run_id,
