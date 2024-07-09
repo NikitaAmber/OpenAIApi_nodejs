@@ -195,6 +195,7 @@ app.post('/files', upload.single('file'), async (req, res) => {
             "vsRetrieve",
             "vsFileList",
             "vsDeleteFile",
+            "vsCreateFile",
         ];
         if(!allowed.includes(method)){
             res.send("Неизвестный метод");

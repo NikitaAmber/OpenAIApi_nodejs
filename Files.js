@@ -90,4 +90,15 @@ export async function vsDeleteFile(configuration) {
         configuration.file_id
     );
 }
+export async function vsCreateFile(configuration) {
+    ["vector_store_id","file_id"].forEach(function (element) {
+        if (!(element in configuration)) {
+            throw new Error(element + " cannot be empty");
+        }
+    });
+    return await openai.beta.vectorStores.files.create(
+        configuration.vector_store_id,
+        configuration.file_id
+    );
+}
 
