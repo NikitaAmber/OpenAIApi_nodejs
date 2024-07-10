@@ -19,10 +19,10 @@ const jwtToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiIsImFkb
 const uploadDirectory = path.join(__dirname, '/uploads');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, uploadDirectory); // Папка для сохранения файлов
+        cb(null, uploadDirectory);
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname); // Оставляем оригинальное имя файла
+        cb(null, Buffer.from(file.originalname, 'latin1').toString('utf8'));
     }
 });
 const upload = multer({ storage: storage });

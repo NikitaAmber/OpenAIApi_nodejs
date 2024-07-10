@@ -41,7 +41,7 @@ export async function fileDelete(configuration) {
 }
 
 export async function vsCreate(configuration) {
-    ["file_ids","name","expires_after"].forEach(function (element) {
+    ["name","expires_after"].forEach(function (element) {
         if (!(element in configuration)) {
             throw new Error(element + " cannot be empty");
         }
@@ -72,12 +72,7 @@ export async function vsFileList(configuration) {
             throw new Error(element + " cannot be empty");
         }
     });
-    if(configuration.limit == null){
-        configuration["limit"] = 100;
-    }
-    let vsId = configuration.vector_store_id;
-    delete configuration.vector_store_id;
-    return await openai.beta.vectorStores.files.list(vsId,configuration);
+    return await openai.beta.vectorStores.files.list(configuration.vector_store_id);
 }
 export async function vsDeleteFile(configuration) {
     ["vector_store_id","file_id"].forEach(function (element) {
@@ -96,9 +91,11 @@ export async function vsCreateFile(configuration) {
             throw new Error(element + " cannot be empty");
         }
     });
+    let vector_store_id = configuration.vector_store_id;
+    delete configuration.vector_store_id;
     return await openai.beta.vectorStores.files.create(
-        configuration.vector_store_id,
-        configuration.file_id
+        vector_store_id,
+        configuration
     );
 }
 
