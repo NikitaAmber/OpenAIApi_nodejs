@@ -2,14 +2,14 @@ import OpenAI from "openai";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
+import dotenv from 'dotenv';
+dotenv.config();
+const apiKey = process.env.OPEN_API_KEY;
 // Получите текущий каталог файла
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const keysPath = path.join(__dirname, 'keys.json');
-let keys = JSON.parse(fs.readFileSync(keysPath, 'utf8'));
-const openai = new OpenAI({apiKey: keys["to-use"]});
+const openai = new OpenAI({apiKey: apiKey});
 
 export async function fileUpload(configuration) {
     ["file", "purpose"].forEach(function (element) {
