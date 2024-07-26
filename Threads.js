@@ -16,7 +16,7 @@ export async function create(configuration) {
     //     console.log("Конфигурация пуста, создаем пустой тред.")
     //     return await openai.beta.threads.create();
     // }
-    console.log(configuration.tool_resources.file_search.vector_store_ids)
+    // console.log(configuration.tool_resources.file_search.vector_store_ids)
     return await openai.beta.threads.create(configuration);
 }
 export async function retrieve(configuration) {

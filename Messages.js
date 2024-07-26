@@ -42,3 +42,14 @@ export async function retrieve(configuration) {
         configuration.message_id
     );
 }
+export async function deleteMessage(configuration) {
+    ["thread_id","message_id"].forEach(function (element) {
+        if (!(element in configuration)) {
+            throw new Error(element + " cannot be empty");
+        }
+    });
+    return await openai.beta.threads.messages.del(
+        configuration.thread_id,
+        configuration.message_id
+    );
+}

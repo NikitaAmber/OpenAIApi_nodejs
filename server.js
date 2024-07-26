@@ -116,7 +116,7 @@ app.post('/messages', async (req, res) => {
     let method = req.query.method;
     // Обработка POST данных
     const configuration = req.body;
-    let allowed = ["create","list","retrieve",];
+    let allowed = ["create","list","retrieve","deleteMessage"];
     if(!allowed.includes(method)){
         res.send("Неизвестный метод");
         return;
